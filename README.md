@@ -44,12 +44,13 @@ html5/
 | `1`–`4` | Select weapon |
 | `Ctrl` (hold) | Shield |
 
-The **Start game** and **Pause game** buttons can also be clicked with the mouse. Clicking a logo with the mouse removes it but does not score a point, as in the original.
+Clicking the playfield also starts the game (or resumes it after pause). The **Start game** and **Pause game** buttons can also be clicked with the mouse. Clicking a logo with the mouse removes it but does not score a point, as in the original.
 
 ### Touch (phone/tablet)
 
 Touch mode turns on automatically with the first touch on the screen, and pressing any game key switches back to the keyboard.
 
+- **Tap anywhere on the playfield**: start the game, start a new one after Game Over, or resume after pause
 - **Drag with a finger**: move the hand
 - **SHIELD** (bottom left, hold): shield
 - **1–4** (bottom right): select weapon
@@ -86,6 +87,7 @@ Touch mode turns on automatically with the first touch on the screen, and pressi
 5. New touch controls: drag, a shield button and weapon buttons, instead of two left/right buttons.
 6. The game is centered in the window.
 7. Hitting a logo with a bullet shows an explosion: the logo pops and disappears, followed by a flash, an expanding shock wave and sparks. The effect is purely visual, does not affect collisions and freezes during pause.
+8. Tapping/clicking the playfield starts the game (or resumes it), with a blinking "TAP TO START" prompt. Taps are ignored for 1 s after Game Over so a new game does not start by accident.
 
 Some quirks of the original were kept on purpose: a logo occasionally gets speed 0 and stays at the top of the screen, and a gun keeps falling after you touch it.
 

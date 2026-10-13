@@ -162,6 +162,9 @@
   let endValue = 5;
   let keysActive = false;
   let touchMode = false;           // switched on by the first touch, off again by the keyboard
+  const touchCapable = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const RESTART_DELAY_MS = 1000;   // ignore taps right after game over, so a tap meant for the game does not restart it
+  let gameOverAt = -Infinity;
 
   let leftPressed = false, rightPressed = false, spacePressed = false, shieldPressed = false;
 
@@ -315,6 +318,7 @@
   }
 
   function gameOver() {
+    gameOverAt = performance.now();
     gameState = GAME_ENDED;
     killsCount = 0;
     currentGun = 1;
@@ -635,6 +639,12 @@
       return;
     }
     if (p.y < INFO_H) return;
+
+    // Tap/click anywhere on the playfield starts the game (or resumes it after pause)
+    if (gameState !== GAME_STARTED) {
+      if (performance.now() - gameOverAt >= RESTART_DELAY_MS) onStartGame();
+      return;
+    }
     const mx = p.x, my = p.y - MAIN_Y;
 
     if (hudVisible()) {
@@ -878,6 +888,24 @@
     ctx.textBaseline = 'top';
   }
 
+  function drawStartPrompt() {
+    if (gameState === GAME_ENDED && performance.now() - gameOverAt < RESTART_DELAY_MS) return;
+    const tap = touchMode || touchCapable;
+    let text;
+    if (gameState === GAME_PAUSED) text = tap ? 'PAUSED - TAP TO RESUME' : 'PAUSED - PRESS S OR CLICK TO RESUME';
+    else text = tap ? 'TAP TO START' : 'PRESS S OR CLICK TO START';
+    // Below the GAME OVER image, centered otherwise
+    const y = gameState === GAME_ENDED ? H / 2 + 70 : H / 2;
+    ctx.save();
+    ctx.globalAlpha = 0.55 + 0.45 * Math.sin(performance.now() / 250);   // blink
+    ctx.font = `bold 30px ${FONT}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = COLOR_TITLE;
+    ctx.fillText(text, W / 2, y);
+    ctx.restore();
+  }
+
   function render(alpha) {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = '#ffffff';
@@ -893,6 +921,7 @@
     ctx.fillRect(0, 0, W, H);
     for (const e of main) drawEntity(e, alpha);
     effects.forEach(drawExplosion);
+    if (gameState !== GAME_STARTED) drawStartPrompt();
     if (hudVisible()) drawTouchHud();
     ctx.restore();
 

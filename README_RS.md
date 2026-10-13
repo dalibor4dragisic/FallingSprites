@@ -44,12 +44,13 @@ html5/
 | `1`–`4` | Izbor oružja |
 | `Ctrl` (držati) | Štit |
 
-Dugmad **Start game** i **Pause game** mogu i da se kliknu mišem. Klik mišem na logo ga uklanja, ali ne donosi poen, kao u originalu.
+Klik na polje igre takođe pokreće igru (ili je nastavlja posle pauze). Dugmad **Start game** i **Pause game** mogu i da se kliknu mišem. Klik mišem na logo ga uklanja, ali ne donosi poen, kao u originalu.
 
 ### Touch (telefon/tablet)
 
 Touch režim se uključuje sam pri prvom dodiru ekrana, a pritisak na neki taster za igru vraća tastaturu.
 
+- **Dodir bilo gde na polju igre**: start igre, nova igra posle Game Over-a ili nastavak posle pauze
 - **Povlačenje prstom**: pomeranje ruke
 - **SHIELD** (dole levo, držati): štit
 - **1–4** (dole desno): izbor oružja
@@ -86,6 +87,7 @@ Touch režim se uključuje sam pri prvom dodiru ekrana, a pritisak na neki taste
 5. Nove touch kontrole: povlačenje, dugme za štit i dugmad za oružje umesto dva dugmeta za levo i desno.
 6. Igra je centrirana u prozoru.
 7. Kada metak pogodi logo, prikazuje se eksplozija: logo se "naduva" i nestane, pa sledi blesak, talas koji se širi i varnice. Efekat je čisto vizuelan, ne utiče na kolizije i zamrzava se tokom pauze.
+8. Dodir ili klik na polje igre pokreće igru (ili je nastavlja), uz trepćući natpis "TAP TO START". Posle Game Over-a dodiri se ignorišu 1 s, da se nova igra ne bi pokrenula slučajno.
 
 Namerno su zadržane neke originalne čudnosti: oblik ponekad dobije brzinu 0 i ostane na vrhu ekrana, a puška posle dodira nastavlja da pada.
 
