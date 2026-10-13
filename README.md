@@ -1,110 +1,112 @@
 # The Nose Picker (FallingSprites)
 
-Jednostavna arkadna pucačina, prvobitno napravljena u Adobe Flex 4.5 / ActionScript 3 (decembar 2013), a sada prebačena u HTML5/JavaScript.
+*[Srpska verzija / Serbian version](README_RS.md)*
 
-Logoi kompanija padaju i okreću se. Igrač pomera ruku ("nose picker") levo-desno, puca na logoe i izbegava njihove metke. Na raspolaganju su četiri oružja i štit, a usput se mogu pokupiti srca za dodatni život.
+A simple arcade shooter, originally built with Adobe Flex 4.5 / ActionScript 3 (December 2013) and now ported to HTML5/JavaScript.
 
-## Sadržaj foldera
+Company logos fall from the top of the screen and spin as they fall. The player moves a hand (the "nose picker") left and right, shoots the logos and dodges their bullets. There are four weapons and a shield, and hearts that drop from time to time give an extra life.
 
-| Putanja | Opis |
+## Folder contents
+
+| Path | Description |
 |---|---|
-| `html5/` | **HTML5/JS verzija igre**, može da se pokrene u svakom modernom browseru |
-| `as3-decompiled/` | ActionScript 3 kod dekompajliran iz `FallingSprites.swf` |
-| `FallingSprites.swf`, `FallingSprites.html`, `*.swz`, `swfobject.js`, `history/`, `playerProductInstall.swf` | Originalna Flash verzija (zahteva Flash Player) |
-| `sounds/` | Originalni zvuci (`.mp` su zapravo MP3 fajlovi) |
-| `logos/`, `pictures/` | Originalne slike |
+| `html5/` | **HTML5/JS version of the game**, runs in any modern browser |
+| `as3-decompiled/` | ActionScript 3 code decompiled from `FallingSprites.swf` |
+| `FallingSprites.swf`, `FallingSprites.html`, `*.swz`, `swfobject.js`, `history/`, `playerProductInstall.swf` | Original Flash version (requires Flash Player) |
+| `sounds/` | Original sounds (the `.mp` files are MP3s) |
+| `logos/`, `pictures/` | Original images |
 
-## Pokretanje HTML5 verzije
+## Running the HTML5 version
 
-Otvori `html5/index.html` u browseru. Server nije potreban, a igra radi i preko `file://`.
+Open `html5/index.html` in a browser. No server is needed, and the game also works over `file://`.
 
-Ako želiš da je hostuješ, dovoljno je da postaviš ceo folder `html5/` na bilo koji statički web server.
+To host the game, upload the whole `html5/` folder to any static web server.
 
 ```
 html5/
-├── index.html          # stranica sa <canvas> elementom
-├── game.js             # kompletna igra (čist JavaScript, bez biblioteka)
+├── index.html          # page with the <canvas> element
+├── game.js             # the whole game (plain JavaScript, no libraries)
 └── assets/
-    ├── img/            # slike izvučene iz SWF-a
+    ├── img/            # images extracted from the SWF
     └── sound/          # explosion.mp3, shot.mp3
 ```
 
-## Kontrole
+## Controls
 
-### Tastatura
+### Keyboard
 
-| Taster | Akcija |
+| Key | Action |
 |---|---|
-| `S` | Start igre / nastavak posle pauze |
-| `P` | Pauza |
-| `←` / `→` | Pomeranje levo/desno |
-| `Space` | Pucanje (držanje = rafal, otpuštanje = jedan metak) |
-| `1`–`4` | Izbor oružja |
-| `Ctrl` (držati) | Štit |
+| `S` | Start the game / resume after pause |
+| `P` | Pause |
+| `←` / `→` | Move left/right |
+| `Space` | Fire (hold = burst, release = single shot) |
+| `1`–`4` | Select weapon |
+| `Ctrl` (hold) | Shield |
 
-Dugmad **Start game** i **Pause game** mogu i da se kliknu mišem. Klik mišem na logo ga uklanja, ali ne donosi poen, kao u originalu.
+The **Start game** and **Pause game** buttons can also be clicked with the mouse. Clicking a logo with the mouse removes it but does not score a point, as in the original.
 
-### Touch (telefon/tablet)
+### Touch (phone/tablet)
 
-Touch režim se uključuje sam pri prvom dodiru ekrana, a pritisak na neki taster za igru vraća tastaturu.
+Touch mode turns on automatically with the first touch on the screen, and pressing any game key switches back to the keyboard.
 
-- **Povlačenje prstom**: pomeranje ruke
-- **SHIELD** (dole levo, držati): štit
-- **1–4** (dole desno): izbor oružja
-- Pucanje je automatsko
+- **Drag with a finger**: move the hand
+- **SHIELD** (bottom left, hold): shield
+- **1–4** (bottom right): select weapon
+- Firing is automatic
 
-## Pravila igre
+## Game rules
 
-- Igrač počinje sa **3 života**. Život se gubi kada te pogodi logo ili neprijateljski metak. Kada broj života padne na 0, igra je gotova.
-- Svaki logo pri pojavi ispaljuje dva metka nadole.
-- Na svakih **5 ubijenih** logoa raste opseg brzine kojom padaju.
-- **Oružja:**
-  1. jedan metak (žuti)
-  2. dva paralelna metka (zeleni)
-  3. tri metka, od kojih dva lete ukoso (plavi)
-  4. veliki laser koji probija sve mete na putu (ljubičasti)
-- Puške koje padaju (na svakih 5–10 s) menjaju oružje kada ih dodirneš.
-- Srce (na svakih 20–40 s) donosi +1 život.
-- Štit blokira i logoe i metke.
+- The player starts with **3 lives** and loses one when hit by a logo or an enemy bullet. The game ends when lives reach 0.
+- Every logo fires two bullets downward when it appears.
+- The range of falling speeds increases with every **5 logos destroyed**.
+- **Weapons:**
+  1. single bullet (yellow)
+  2. two parallel bullets (green)
+  3. three bullets, two of them fired at an angle (blue)
+  4. big laser that pierces every target in its path (purple)
+- Falling guns (every 5–10 s) switch your weapon when you touch them.
+- A heart (every 20–40 s) gives +1 life.
+- The shield blocks both logos and bullets.
 
-## Tehničke napomene o portu
+## Technical notes on the port
 
-- **Verna logika**: kod je prepisan 1:1 iz dekompajliranog AS3. Brzine, tajmeri, pozicije, nivoi težine i kolizije (presek bounding box-ova, kao Flash `hitTestObject`) su isti kao u originalu.
-- **Fiksni korak od 24 Hz**: SWF je radio na 24 fps i sva kretanja su po frejmu, pa logika i dalje radi na 24 koraka u sekundi.
-- **Glatko iscrtavanje**: crta se na punoj brzini ekrana (60/120/144 Hz), a pozicije i rotacije se interpoliraju između logičkih koraka.
-- **Skaliranje**: logička scena je 976×805 (info traka 80 px + razmak 5 px + polje igre 976×720) i skalira se na veličinu prozora uz oštar prikaz na HiDPI ekranima.
-- **Zvuk**: koristi se pool `<audio>` elemenata, tako da se zvuci mogu preklapati i rade preko `file://`.
+- **Faithful logic**: the code is a 1:1 rewrite of the decompiled AS3. Speeds, timers, positions, difficulty levels and collisions (bounding box intersection, like Flash `hitTestObject`) match the original.
+- **Fixed 24 Hz step**: the SWF ran at 24 fps and all movement is per frame, so the logic still runs at 24 steps per second.
+- **Smooth rendering**: drawing runs at the display refresh rate (60/120/144 Hz), and positions and rotations are interpolated between logic steps.
+- **Scaling**: the logical stage is 976×805 (80 px info bar + 5 px gap + 976×720 playfield). It scales to the window size and stays sharp on HiDPI screens.
+- **Sound**: a pool of `<audio>` elements, so sounds can overlap and work over `file://`.
 
-### Razlike u odnosu na original
+### Differences from the original
 
-1. Tokom pauze se zaustavljaju i neprijateljski metci. U originalu su nastavljali da lete i mogli su da oduzmu život.
-2. Običan metak nestaje na prvom pogotku. Laser i dalje probija sve.
-3. Kada prozor izgubi fokus, pritisnuti tasteri se otpuštaju.
-4. Blokirani su browser prečice `Ctrl+S` i `Ctrl+P`, jer se u igri koriste `S`, `P` i `Ctrl`.
-5. Nove touch kontrole: povlačenje, dugme za štit i dugmad za oružje umesto dva dugmeta za levo i desno.
-6. Igra je centrirana u prozoru.
-7. Kada metak pogodi logo, prikazuje se eksplozija: logo se "naduva" i nestane, pa sledi blesak, talas koji se širi i varnice. Efekat je čisto vizuelan, ne utiče na kolizije i zamrzava se tokom pauze.
+1. Enemy bullets now stop during pause. In the original they kept flying and could cost you a life.
+2. A normal bullet disappears on its first hit. The laser still pierces everything.
+3. Held keys are released when the window loses focus.
+4. The browser shortcuts `Ctrl+S` and `Ctrl+P` are blocked, because the game uses `S`, `P` and `Ctrl`.
+5. New touch controls: drag, a shield button and weapon buttons, instead of two left/right buttons.
+6. The game is centered in the window.
+7. Hitting a logo with a bullet shows an explosion: the logo pops and disappears, followed by a flash, an expanding shock wave and sparks. The effect is purely visual, does not affect collisions and freezes during pause.
 
-Namerno su zadržane neke originalne čudnosti: oblik ponekad dobije brzinu 0 i ostane na vrhu ekrana, a puška posle dodira nastavlja da pada.
+Some quirks of the original were kept on purpose: a logo occasionally gets speed 0 and stays at the top of the screen, and a gun keeps falling after you touch it.
 
-## Dekompajlirani ActionScript (`as3-decompiled/`)
+## Decompiled ActionScript (`as3-decompiled/`)
 
-Dobijen je alatom [JPEXS Free Flash Decompiler](https://github.com/jindrapetrik/jpexs-decompiler) iz `FallingSprites.swf`.
+Extracted from `FallingSprites.swf` with [JPEXS Free Flash Decompiler](https://github.com/jindrapetrik/jpexs-decompiler).
 
-| Putanja | Opis |
+| Path | Description |
 |---|---|
-| `src/FallingSprites.as` | Glavna klasa sa celom logikom igre |
-| `src/model/` | Oblici (`GeometricShape`, `Rectangle`, `Ellipse`), puške, municija, srce (`Live`), štit, dugmad |
-| `src/utility/LoanShark.as` | Object pool za municiju |
-| `src/interfaces/GeometricInterface.as` | Interfejs za oblike |
-| `flex-generated/` | Klase koje je Flex kompajler sam generisao (stilovi, SystemManager, resource bundle-ovi) |
-| `embedded-images/` | Slike koje su bile ugrađene u SWF |
+| `src/FallingSprites.as` | Main class containing all of the game logic |
+| `src/model/` | Shapes (`GeometricShape`, `Rectangle`, `Ellipse`), guns, ammo, heart (`Live`), shield, buttons |
+| `src/utility/LoanShark.as` | Object pool for ammo |
+| `src/interfaces/GeometricInterface.as` | Interface for shapes |
+| `flex-generated/` | Classes generated by the Flex compiler (styles, SystemManager, resource bundles) |
+| `embedded-images/` | Images that were embedded in the SWF |
 
-Ograničenja dekompajliranog koda:
+Limitations of the decompiled code:
 
-- Lokalne promenljive i parametri imaju generička imena (`_loc2_`, `param1`).
-- Komentari ne postoje.
-- Originalni MXML je pretvoren u AS3.
-- `[Embed]` metapodaci su zamenjeni klasama `*_Bitmap` / `FallingSprites_*`.
+- Local variables and parameters have generic names (`_loc2_`, `param1`).
+- There are no comments.
+- The original MXML has been converted to AS3.
+- The `[Embed]` metadata has been replaced by `*_Bitmap` / `FallingSprites_*` classes.
 
-Kod je kompletan i čitljiv, ali se ne može ponovo kompajlirati bez ručnog sređivanja.
+The code is complete and readable, but it can't be compiled again without manual cleanup.
